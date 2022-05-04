@@ -4,6 +4,7 @@ import (
 	// "fmt"
 	"github.com/gin-gonic/gin"
 	"bwastartup/user"
+	"bwastartup/auth"
 	"bwastartup/handler"
 	"log"
 	"gorm.io/driver/mysql"
@@ -20,8 +21,10 @@ import (
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
+	authService := auth.NewService()
 
-	userHandler := handler.NewUserHandler(userService)
+
+	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
 	api:= router.Group("api/v1")
