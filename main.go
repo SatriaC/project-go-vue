@@ -28,6 +28,7 @@ import (
 
 	api.POST("/users", userHandler.RegisterUser)
 	api.POST("/sessions", userHandler.Login)
+	api.POST("/email-checkers", userHandler.CheckEmailAvailability)
 
 	router.Run()
 	// input dari user
