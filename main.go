@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"bwastartup/user"
 	"bwastartup/auth"
@@ -22,8 +22,6 @@ import (
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
-
-
 	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
