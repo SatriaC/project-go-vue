@@ -4,6 +4,7 @@ import (
 	"strings"
 	// "fmt"
 	"github.com/gin-gonic/gin"
+	"bwastartup/campaign"
 	"bwastartup/user"
 	"bwastartup/auth"
 	"bwastartup/helper"
@@ -22,6 +23,8 @@ import (
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	campaignRepository := campaign.NewRepository(db)
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
