@@ -26,6 +26,7 @@ import (
 
 	campaignRepository := campaign.NewRepository(db)
 	campaignService := campaign.NewService(campaignRepository)
+	campaignHandler := handler.NewCampaignHandler(campaignService)
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
@@ -39,7 +40,8 @@ import (
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email-checkers", userHandler.CheckEmailAvailability)
 	api.POST("/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
-
+	
+	api.GET("/campaigns", campaignHandler.GetCampaigns)
 	router.Run()
 	// input dari user
 	// handler : mapping input dari User jadi struct input
