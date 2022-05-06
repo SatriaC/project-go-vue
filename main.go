@@ -25,6 +25,7 @@ import (
 	}
 
 	campaignRepository := campaign.NewRepository(db)
+	campaignService := campaign.NewService(campaignRepository)
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
