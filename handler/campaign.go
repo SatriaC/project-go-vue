@@ -1,10 +1,10 @@
 package handler
 import (
 	"bwastartup/helper"
+	"bwastartup/campaign"
 	"strconv"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"bwastartup/campaign"
 )
 // tangkap parameter di handler
 // handler ke service
@@ -30,7 +30,7 @@ func (h *campaignHandler) GetCampaigns(c *gin.Context)  {
 		return
 	}
 
-	response := helper.APIResponse("List of campaigns", http.StatusOK, "success", campaigns)
+	response := helper.APIResponse("List of campaigns", http.StatusOK, "success", campaign.FormatCampaigns(campaigns))
 	c.JSON(http.StatusOK, response)
 
 }
