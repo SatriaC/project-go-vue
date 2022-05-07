@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bwastartup/transaction"
 	"strings"
 	// "fmt"
 	"github.com/gin-gonic/gin"
@@ -23,6 +24,10 @@ import (
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	transactionRepository := transaction.NewRepository(db)
+	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	campaignRepository := campaign.NewRepository(db)
 	campaignService := campaign.NewService(campaignRepository)
@@ -47,6 +52,8 @@ import (
 	api.POST("/campaigns", authMiddleware(authService, userService), campaignHandler.CreateCampaign)
 	api.POST("/campaign-images", authMiddleware(authService, userService), campaignHandler.UploadImage)
 	api.PUT("/campaigns/:id", authMiddleware(authService, userService), campaignHandler.UpdateCampaign)
+	
+	api.GET("/campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransactions)
 	router.Run()
 	// input dari user
 	// handler : mapping input dari User jadi struct input
