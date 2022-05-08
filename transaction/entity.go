@@ -2,9 +2,9 @@ package transaction
 
 import (
 	"bwastartup/user"
+	"bwastartup/campaign"
 	"time"
 )
-
 
 type Transaction struct{
 	ID 				int
@@ -14,6 +14,7 @@ type Transaction struct{
 	Status			string
 	Code			string
 	User			user.User
+	Campaign		campaign.Campaign
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
