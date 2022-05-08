@@ -8,6 +8,7 @@ import (
 	"bwastartup/campaign"
 	"bwastartup/user"
 	"bwastartup/auth"
+	"bwastartup/payment"
 	"bwastartup/helper"
 	"bwastartup/handler"
 	"log"
@@ -30,8 +31,9 @@ import (
 	campaignService := campaign.NewService(campaignRepository)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
 	
+	paymentService := payment.NewService()
 	transactionRepository := transaction.NewRepository(db)
-	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	userRepository := user.NewRepository(db)
@@ -56,6 +58,7 @@ import (
 	
 	api.GET("/campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransactions)
 	api.GET("/transactions", authMiddleware(authService, userService), transactionHandler.GetUserTransactions)
+	api.POST("/transactions", authMiddleware(authService, userService), transactionHandler.CreateTransaction)
 	router.Run()
 	// input dari user
 	// handler : mapping input dari User jadi struct input
